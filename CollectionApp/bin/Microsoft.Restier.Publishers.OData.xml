@@ -1,0 +1,1068 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Restier.Publishers.OData</name>
+    </assembly>
+    <members>
+        <member name="M:System.Linq.Expressions.ExpressionHelpers.GetCountableQuery``1(System.Linq.IQueryable{``0})">
+            <summary>
+            Get count IQueryable of the elements with $skip/$top ignored
+            </summary>
+            <typeparam name="TElement">The type parameter for IQueryable</typeparam>
+            <param name="query">The input query.</param>
+            <returns>The count IQueryable</returns>
+        </member>
+        <member name="M:System.Linq.Expressions.ExpressionHelpers.CreateEmptyQueryable(System.Type)">
+            <summary>
+            Create am empty Queryable of specified type
+            </summary>
+            <param name="elementType">The element type of IQueryable</param>
+            <returns>The empty IQueryable</returns>
+        </member>
+        <member name="M:System.TypeExtensions.FindGenericType(System.Type,System.Type)">
+            <summary>
+            Find a base type or implemented interface which has a generic definition
+            represented by the parameter, <c>definition</c>.
+            </summary>
+            <param name="type">
+            The subject type.
+            </param>
+            <param name="definition">
+            The generic definition to check with.
+            </param>
+            <returns>
+            The base type or the interface found; otherwise, <c>null</c>.
+            </returns>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.Batch.RestierBatchHandler">
+            <summary>
+            Default implementation of <see cref="T:System.Web.OData.Batch.ODataBatchHandler"/> in RESTier.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Batch.RestierBatchHandler.#ctor(System.Web.Http.HttpServer,System.Func{Microsoft.Restier.Core.ApiBase})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Restier.Publishers.OData.Batch.RestierBatchHandler"/> class.
+            </summary>
+            <param name="httpServer">The HTTP server instance.</param>
+            <param name="apiFactory">Gets or sets the callback to create API.</param>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Batch.RestierBatchHandler.ParseBatchRequestsAsync(System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously parses the batch requests.
+            </summary>
+            <param name="request">The HTTP request that contains the batch requests.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>The task object that represents this asynchronous operation.</returns>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Batch.RestierBatchHandler.CreateRestierBatchChangeSetRequestItem(System.Collections.Generic.IList{System.Net.Http.HttpRequestMessage})">
+            <summary>
+            Creates the <see cref="T:Microsoft.Restier.Publishers.OData.Batch.RestierBatchChangeSetRequestItem"/> instance.
+            </summary>
+            <param name="changeSetRequests">The list of changeset requests.</param>
+            <returns>The created <see cref="T:Microsoft.Restier.Publishers.OData.Batch.RestierBatchChangeSetRequestItem"/> instance.</returns>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Batch.RestierBatchHandler.ApiFactory">
+            <summary>
+            Gets or sets the callback to create API.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.Batch.RestierChangeSetProperty">
+            <summary>
+            Represents an API <see cref="P:Microsoft.Restier.Publishers.OData.Batch.RestierChangeSetProperty.ChangeSet"/> property.
+            TODO need to redesign this class
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Batch.RestierChangeSetProperty.#ctor(Microsoft.Restier.Publishers.OData.Batch.RestierBatchChangeSetRequestItem)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Restier.Publishers.OData.Batch.RestierChangeSetProperty"/> class.
+            </summary>
+            <param name="changeSetRequestItem">The changeset request item.</param>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Batch.RestierChangeSetProperty.OnChangeSetCompleted">
+            <summary>
+            The callback to execute when the changeset is completed.
+            </summary>
+            <returns>The task object that represents this callback execution.</returns>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Batch.RestierChangeSetProperty.ChangeSet">
+            <summary>
+            Gets or sets the changeset.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.Batch.RestierBatchChangeSetRequestItem">
+            <summary>
+            Represents an API <see cref="T:Microsoft.Restier.Core.Submit.ChangeSet"/> request.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Batch.RestierBatchChangeSetRequestItem.#ctor(System.Collections.Generic.IEnumerable{System.Net.Http.HttpRequestMessage},System.Func{Microsoft.Restier.Core.ApiBase})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Restier.Publishers.OData.Batch.RestierBatchChangeSetRequestItem"/> class.
+            </summary>
+            <param name="requests">The request messages.</param>
+            <param name="apiFactory">Gets or sets the callback to create API.</param>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Batch.RestierBatchChangeSetRequestItem.SendRequestAsync(System.Net.Http.HttpMessageInvoker,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously sends the request.
+            </summary>
+            <param name="invoker">The invoker.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>The task object that contains the batch response.</returns>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.Formatter.DeserializationHelpers">
+            <summary>
+            Get clr type from payload.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.Formatter.RestierDeserializerProviderProxy">
+            <summary>
+            The deserializer provider proxy which get real provider to implement the logic.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Formatter.RestierDeserializerProviderProxy.GetODataDeserializer(Microsoft.OData.Edm.IEdmModel,System.Type,System.Net.Http.HttpRequestMessage)">
+            <summary>
+            Gets an <see cref="T:System.Web.OData.Formatter.Deserialization.ODataDeserializer"/> for the given type.
+            The proxy provider will get the real provider to return the serializer.
+            </summary>
+            <param name="model">The EDM model.</param>
+            <param name="type">The CLR type.</param>
+            <param name="request">The request being deserialized.</param>
+            <returns>An <see cref="T:System.Web.OData.Formatter.Deserialization.ODataDeserializer"/> that can deserialize the given type.</returns>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Formatter.RestierDeserializerProviderProxy.GetEdmTypeDeserializer(Microsoft.OData.Edm.IEdmTypeReference)">
+            <summary>
+            Gets the <see cref="T:System.Web.OData.Formatter.Deserialization.ODataEdmTypeDeserializer"/> for the given EDM type.
+            The proxy provider will get the real provider to return the serializer.
+            </summary>
+            <param name="edmType">The EDM type.</param>
+            <returns>An <see cref="T:System.Web.OData.Formatter.Deserialization.ODataEdmTypeDeserializer"/> that can deserialize the given EDM type.</returns>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.Formatter.RestierSerializerProviderProxy">
+            <summary>
+            The serializer provider proxy which get real provider to implement the logic.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Formatter.RestierSerializerProviderProxy.GetODataPayloadSerializer(Microsoft.OData.Edm.IEdmModel,System.Type,System.Net.Http.HttpRequestMessage)">
+            <summary>
+            Gets the serializer for the given result type.
+            The proxy provider will get the real provider to return the serializer.
+            </summary>
+            <param name="model">The EDM model.</param>
+            <param name="type">The type of result to serialize.</param>
+            <param name="request">The HTTP request.</param>
+            <returns>The serializer instance.</returns>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Formatter.RestierSerializerProviderProxy.GetEdmTypeSerializer(Microsoft.OData.Edm.IEdmTypeReference)">
+            <summary>
+            Gets the serializer for the given EDM type reference.
+            The proxy provider will get the real provider to return the serializer.
+            </summary>
+            <param name="edmType">The EDM type reference involved in the serializer.</param>
+            <returns>The serializer instance.</returns>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.Model.ApiConfigurationExtensions">
+            <summary>
+            Offers a collection of extension methods to <see cref="T:Microsoft.Restier.Core.ApiConfiguration"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Model.ApiConfigurationExtensions.IgnoreProperty(Microsoft.Restier.Core.ApiConfiguration,System.String)">
+            <summary>
+            Ignores the given property in ApiBase or sub-class when building the model.
+            </summary>
+            <param name="configuration">An API configuration.</param>
+            <param name="propertyName">The name of the property to be ignored.</param>
+            <returns>The current API configuration instance.</returns>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.Model.ModelMapper">
+            <summary>
+            Represents a model mapper based on a DbContext.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Model.ModelMapper.TryGetRelevantType(Microsoft.Restier.Core.ApiContext,System.String,System.Type@)">
+            <summary>
+            Tries to get the relevant type of an entity
+            set, singleton, or composable function import.
+            </summary>
+            <param name="context">
+            An API context.
+            </param>
+            <param name="name">
+            The name of an entity set, singleton or composable function import.
+            </param>
+            <param name="relevantType">
+            When this method returns, provides the
+            relevant type of the queryable source.
+            </param>
+            <returns>
+            <c>true</c> if the relevant type was
+            provided; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Model.ModelMapper.TryGetRelevantType(Microsoft.Restier.Core.ApiContext,System.String,System.String,System.Type@)">
+            <summary>
+            Tries to get the relevant type of a composable function.
+            </summary>
+            <param name="context">
+            An API context.
+            </param>
+            <param name="namespaceName">
+            The name of a namespace containing a composable function.
+            </param>
+            <param name="name">
+            The name of composable function.
+            </param>
+            <param name="relevantType">
+            When this method returns, provides the
+            relevant type of the composable function.
+            </param>
+            <returns>
+            <c>true</c> if the relevant type was
+            provided; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.Model.OperationAttribute">
+            <summary>
+            Attribute that indicates a method is an OData Operation (Function or Action).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Model.OperationAttribute.Name">
+            <summary>
+            Gets or sets the name of the operation.
+            The default name is same as method name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Model.OperationAttribute.Namespace">
+            <summary>
+            Gets or sets the namespace of the operation.
+            The default value will be same as the namespace of entity type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Model.OperationAttribute.EntitySet">
+            <summary>
+            Gets or sets the entity set associated with the operation result.
+            Only need to be set for unbound operations
+            when there are multiple entity sets with same entity type as result entity type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Model.OperationAttribute.IsComposable">
+            <summary>
+            Gets or sets a value indicating whether the function is composable.
+            The default value is false
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Model.OperationAttribute.IsBound">
+            <summary>
+            Gets or sets a value indicating whether the operation is bound or not.
+            If it is set to true, then no matter what's the first parameter, it will be considered as bound.
+            If it is set to false, then no matter what's the first parameter, it will be considered as unbound.
+            The default value is false
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Model.OperationAttribute.HasSideEffects">
+            <summary>
+            Gets or sets a value indicating whether the operation has side effects.
+            If a operation does not have side effect, it means it is a function.
+            If a operation has side effect, it means it is a action.
+            The default value is false
+            </summary>
+        </member>
+        <member name="F:Microsoft.Restier.Publishers.OData.PropertyAttributes.None">
+            <summary>
+            No flag is set for the property
+            </summary>
+        </member>
+        <member name="F:Microsoft.Restier.Publishers.OData.PropertyAttributes.IgnoreForUpdate">
+            <summary>
+            Gets or sets a value indicating whether the property should be ignored during update
+            </summary>
+        </member>
+        <member name="F:Microsoft.Restier.Publishers.OData.PropertyAttributes.IgnoreForCreation">
+            <summary>
+            Gets or sets a value indicating whether the property should be ignored during creation
+            </summary>
+        </member>
+        <member name="F:Microsoft.Restier.Publishers.OData.PropertyAttributes.NoReadPermission">
+            <summary>
+            Gets or sets a value indicating whether there is permission to read the property
+            </summary>
+        </member>
+        <member name="F:Microsoft.Restier.Publishers.OData.PropertyAttributes.NoWritePermission">
+            <summary>
+            Gets or sets a value indicating whether there is permission to write the property
+            </summary>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.Model.RestierModelBuilder">
+            <summary>
+            This is a RESTier model build which retrieve information from providers like entity framework provider,
+            then build entity set and entity type based on retrieved information.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Model.RestierModelBuilder.GetModelAsync(Microsoft.Restier.Core.Model.ModelContext,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.Model.RestierModelExtender">
+            <summary>
+            A convention-based API model builder that extends a model, maps between
+            the model space and the object space, and expands a query expression.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Model.RestierModelExtender.ModelBuilder.GetModelAsync(Microsoft.Restier.Core.Model.ModelContext,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Model.RestierModelExtender.ModelMapper.TryGetRelevantType(Microsoft.Restier.Core.ApiContext,System.String,System.Type@)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Model.RestierModelExtender.ModelMapper.TryGetRelevantType(Microsoft.Restier.Core.ApiContext,System.String,System.String,System.Type@)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Model.RestierModelExtender.QueryExpressionExpander.Expand(Microsoft.Restier.Core.Query.QueryExpressionContext)">
+            <inheritdoc/>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Model.RestierModelExtender.QueryExpressionExpander.InnerHandler">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Model.RestierModelExtender.QueryExpressionSourcer.ReplaceQueryableSource(Microsoft.Restier.Core.Query.QueryExpressionContext,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.Formatter.DefaultRestierDeserializerProvider">
+            <summary>
+            The default deserializer provider.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Formatter.DefaultRestierDeserializerProvider.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Restier.Publishers.OData.Formatter.DefaultRestierDeserializerProvider"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Formatter.DefaultRestierDeserializerProvider.GetEdmTypeDeserializer(Microsoft.OData.Edm.IEdmTypeReference)">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Formatter.DefaultRestierDeserializerProvider.SingletonInstance">
+            <summary>
+            Gets the default instance of the <see cref="T:Microsoft.Restier.Publishers.OData.Formatter.DefaultRestierDeserializerProvider"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.Formatter.RestierEnumDeserializer">
+            <summary>
+            The serializer for enum result.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Formatter.RestierEnumDeserializer.Read(Microsoft.OData.Core.ODataMessageReader,System.Type,System.Web.OData.Formatter.Deserialization.ODataDeserializerContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Formatter.RestierEnumDeserializer.ReadInline(System.Object,Microsoft.OData.Edm.IEdmTypeReference,System.Web.OData.Formatter.Deserialization.ODataDeserializerContext)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.Formatter.DefaultRestierSerializerProvider">
+            <summary>
+            The default serializer provider.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Formatter.DefaultRestierSerializerProvider.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Restier.Publishers.OData.Formatter.DefaultRestierSerializerProvider"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Formatter.DefaultRestierSerializerProvider.GetODataPayloadSerializer(Microsoft.OData.Edm.IEdmModel,System.Type,System.Net.Http.HttpRequestMessage)">
+            <summary>
+            Gets the serializer for the given result type.
+            </summary>
+            <param name="model">The EDM model.</param>
+            <param name="type">The type of result to serialize.</param>
+            <param name="request">The HTTP request.</param>
+            <returns>The serializer instance.</returns>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Formatter.DefaultRestierSerializerProvider.GetEdmTypeSerializer(Microsoft.OData.Edm.IEdmTypeReference)">
+            <summary>
+            Gets the serializer for the given EDM type reference.
+            </summary>
+            <param name="edmType">The EDM type reference involved in the serializer.</param>
+            <returns>The serializer instance.</returns>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Formatter.DefaultRestierSerializerProvider.SingletonInstance">
+            <summary>
+            Gets the default instance of the <see cref="T:Microsoft.Restier.Publishers.OData.Formatter.DefaultRestierSerializerProvider"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.Formatter.RestierCollectionSerializer">
+            <summary>
+            The serializer for collection result.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Formatter.RestierCollectionSerializer.#ctor(System.Web.OData.Formatter.Serialization.ODataSerializerProvider)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Restier.Publishers.OData.Formatter.RestierCollectionSerializer"/> class.
+            </summary>
+            <param name="provider">The serializer provider.</param>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Formatter.RestierCollectionSerializer.WriteObject(System.Object,System.Type,Microsoft.OData.Core.ODataMessageWriter,System.Web.OData.Formatter.Serialization.ODataSerializerContext)">
+            <summary>
+            Writes the complex result to the response message.
+            </summary>
+            <param name="graph">The collection result to write.</param>
+            <param name="type">The type of the collection.</param>
+            <param name="messageWriter">The message writer.</param>
+            <param name="writeContext">The writing context.</param>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.Formatter.RestierEnumSerializer">
+            <summary>
+            The serializer for enum result.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Formatter.RestierEnumSerializer.WriteObject(System.Object,System.Type,Microsoft.OData.Core.ODataMessageWriter,System.Web.OData.Formatter.Serialization.ODataSerializerContext)">
+            <summary>
+            Writes the enum result to the response message.
+            </summary>
+            <param name="graph">The enum result to write.</param>
+            <param name="type">The type of the enum.</param>
+            <param name="messageWriter">The message writer.</param>
+            <param name="writeContext">The writing context.</param>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.Formatter.RestierComplexTypeSerializer">
+            <summary>
+            The serializer for complex result.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Formatter.RestierComplexTypeSerializer.#ctor(System.Web.OData.Formatter.Serialization.ODataSerializerProvider)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Restier.Publishers.OData.Formatter.RestierComplexTypeSerializer"/> class.
+            </summary>
+            <param name="provider">The serializer provider.</param>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Formatter.RestierComplexTypeSerializer.WriteObject(System.Object,System.Type,Microsoft.OData.Core.ODataMessageWriter,System.Web.OData.Formatter.Serialization.ODataSerializerContext)">
+            <summary>
+            Writes the complex result to the response message.
+            </summary>
+            <param name="graph">The complex result to write.</param>
+            <param name="type">The type of the complex.</param>
+            <param name="messageWriter">The message writer.</param>
+            <param name="writeContext">The writing context.</param>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.Formatter.RestierRawSerializer">
+            <summary>
+            The serializer for raw result.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Formatter.RestierRawSerializer.WriteObject(System.Object,System.Type,Microsoft.OData.Core.ODataMessageWriter,System.Web.OData.Formatter.Serialization.ODataSerializerContext)">
+            <summary>
+            Writes the entity result to the response message.
+            </summary>
+            <param name="graph">The entity result to write.</param>
+            <param name="type">The type of the entity.</param>
+            <param name="messageWriter">The message writer.</param>
+            <param name="writeContext">The writing context.</param>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.Formatter.RestierPrimitiveSerializer">
+            <summary>
+            The serializer for primitive result.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Formatter.RestierPrimitiveSerializer.WriteObject(System.Object,System.Type,Microsoft.OData.Core.ODataMessageWriter,System.Web.OData.Formatter.Serialization.ODataSerializerContext)">
+            <summary>
+            Writes the entity result to the response message.
+            </summary>
+            <param name="graph">The entity result to write.</param>
+            <param name="type">The type of the entity.</param>
+            <param name="messageWriter">The message writer.</param>
+            <param name="writeContext">The writing context.</param>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Formatter.RestierPrimitiveSerializer.CreateODataPrimitiveValue(System.Object,Microsoft.OData.Edm.IEdmPrimitiveTypeReference,System.Web.OData.Formatter.Serialization.ODataSerializerContext)">
+            <summary>
+            Creates an <see cref="T:Microsoft.OData.Core.ODataPrimitiveValue"/> for the object represented by <paramref name="graph"/>.
+            </summary>
+            <param name="graph">The primitive value.</param>
+            <param name="primitiveType">The EDM primitive type of the value.</param>
+            <param name="writeContext">The serializer write context.</param>
+            <returns>The created <see cref="T:Microsoft.OData.Core.ODataPrimitiveValue"/>.</returns>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.Formatter.RestierFeedSerializer">
+            <summary>
+            The serializer for entity collection result.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Formatter.RestierFeedSerializer.#ctor(System.Web.OData.Formatter.Serialization.ODataSerializerProvider)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Restier.Publishers.OData.Formatter.RestierFeedSerializer"/> class.
+            </summary>
+            <param name="provider">The serializer provider.</param>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Formatter.RestierFeedSerializer.WriteObject(System.Object,System.Type,Microsoft.OData.Core.ODataMessageWriter,System.Web.OData.Formatter.Serialization.ODataSerializerContext)">
+            <summary>
+            Writes the entity collection results to the response message.
+            </summary>
+            <param name="graph">The entity collection results.</param>
+            <param name="type">The type of the entities.</param>
+            <param name="messageWriter">The message writer.</param>
+            <param name="writeContext">The writing context.</param>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.HttpConfigurationExtensions">
+            <summary>
+            Offers a collection of extension methods to <see cref="T:System.Web.Http.HttpConfiguration"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.HttpConfigurationExtensions.MapRestierRoute``1(System.Web.Http.HttpConfiguration,System.String,System.String,System.Func{Microsoft.Restier.Core.ApiBase},Microsoft.Restier.Publishers.OData.Batch.RestierBatchHandler)">
+            TODO GitHubIssue#51 : Support model lazy loading
+            <summary>
+            Maps the API routes to the RestierController.
+            </summary>
+            <typeparam name="TApi">The user API.</typeparam>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/> instance.</param>
+            <param name="routeName">The name of the route.</param>
+            <param name="routePrefix">The prefix of the route.</param>
+            <param name="apiFactory">The callback to create API instances.</param>
+            <param name="batchHandler">The handler for batch requests.</param>
+            <returns>The task object containing the resulted <see cref="T:System.Web.OData.Routing.ODataRoute"/> instance.</returns>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.HttpConfigurationExtensions.MapRestierRoute``1(System.Web.Http.HttpConfiguration,System.String,System.String,Microsoft.Restier.Publishers.OData.Batch.RestierBatchHandler)">
+            <summary>
+            Maps the API routes to the RestierController.
+            </summary>
+            <typeparam name="TApi">The user API.</typeparam>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/> instance.</param>
+            <param name="routeName">The name of the route.</param>
+            <param name="routePrefix">The prefix of the route.</param>
+            <param name="batchHandler">The handler for batch requests.</param>
+            <returns>The task object containing the resulted <see cref="T:System.Web.OData.Routing.ODataRoute"/> instance.</returns>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.HttpConfigurationExtensions.GetUseVerboseErrors(System.Web.Http.HttpConfiguration)">
+            <summary>
+            Gets the UseVerboseErrors flag from the configuration.
+            </summary>
+            <param name="configuration">The server configuration.</param>
+            <returns>The flag of UseVerboseErrors for the configuration.</returns>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.HttpConfigurationExtensions.SetUseVerboseErrors(System.Web.Http.HttpConfiguration,System.Boolean)">
+            <summary>
+            Sets the UseVerboseErrors flag on the configuration.
+            If this is set to true (suggest for debug model only),
+            then the whole exception stack will be returned in case there is some error.
+            </summary>
+            <param name="configuration">The server configuration.</param>
+            <param name="useVerboseErrors">The UseVerboseErrors flag for the configuration.</param>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.HttpConfigurationExtensions.CreateRestierRoutingConventions(System.Web.Http.HttpConfiguration,Microsoft.OData.Edm.IEdmModel,System.Func{Microsoft.Restier.Core.ApiBase})">
+            <summary>
+            Creates the default routing conventions.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/> instance.</param>
+            <param name="model">The EDM model.</param>
+            <param name="apiFactory">The API factory.</param>
+            <returns>The routing conventions created.</returns>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.HttpRequestMessageExtensions">
+            <summary>
+            Offers a collection of extension methods to <see cref="T:System.Net.Http.HttpRequestMessage"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.HttpRequestMessageExtensions.SetChangeSet(System.Net.Http.HttpRequestMessage,Microsoft.Restier.Publishers.OData.Batch.RestierChangeSetProperty)">
+            <summary>
+            Sets the <see cref="T:Microsoft.Restier.Publishers.OData.Batch.RestierChangeSetProperty"/> to the <see cref="T:System.Net.Http.HttpRequestMessage"/>.
+            </summary>
+            <param name="request">The HTTP request.</param>
+            <param name="changeSetProperty">The change set to be set.</param>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.HttpRequestMessageExtensions.GetChangeSet(System.Net.Http.HttpRequestMessage)">
+            <summary>
+            Gets the <see cref="T:Microsoft.Restier.Publishers.OData.Batch.RestierChangeSetProperty"/> from the <see cref="T:System.Net.Http.HttpRequestMessage"/>.
+            </summary>
+            <param name="request">The HTTP request.</param>
+            <returns>The <see cref="T:Microsoft.Restier.Publishers.OData.Batch.RestierChangeSetProperty"/>.</returns>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.HttpRequestMessageExtensions.GetApiInstance(System.Net.Http.HttpRequestMessage)">
+            <summary>
+            Gets the API instance from the <see cref="T:System.Net.Http.HttpRequestMessage"/>.
+            </summary>
+            <param name="request">The HTTP request.</param>
+            <returns>The API instance.</returns>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.HttpRequestMessageExtensions.SetApiInstance(System.Net.Http.HttpRequestMessage,Microsoft.Restier.Core.ApiBase)">
+            <summary>
+            Sets the API instance to the <see cref="T:System.Net.Http.HttpRequestMessage"/>.
+            </summary>
+            <param name="request">The HTTP request.</param>
+            <param name="apiInstance">The API instance.</param>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.Formatter.RestierFormattingAttribute">
+            <summary>
+            Specifies the serializer and deserializer provider for the API controller.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.Formatter.RestierFormattingAttribute.Initialize(System.Web.Http.Controllers.HttpControllerSettings,System.Web.Http.Controllers.HttpControllerDescriptor)">
+            <summary>
+            Inserts the RESTier specific formatters to the controller.
+            </summary>
+            <param name="controllerSettings">The controller settings.</param>
+            <param name="controllerDescriptor">The controller descriptor.</param>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.RestierExceptionFilterAttribute">
+            <summary>
+            An ExceptionFilter that is capable of serializing well-known exceptions to the client.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.RestierExceptionFilterAttribute.OnExceptionAsync(System.Web.Http.Filters.HttpActionExecutedContext,System.Threading.CancellationToken)">
+            <summary>
+            The callback to execute when exception occurs.
+            </summary>
+            <param name="actionExecutedContext">The context where the action is executed.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>The task object that represents the callback execution.</returns>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.RestierPayloadValueConverter">
+            <summary>
+            The default payload value converter in RESTier.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.RestierPayloadValueConverter.ConvertToPayloadValue(System.Object,Microsoft.OData.Edm.IEdmTypeReference)">
+            <summary>
+            Converts the given primitive value defined in a type definition from the payload object.
+            </summary>
+            <param name="value">The given CLR value.</param>
+            <param name="edmTypeReference">The expected type reference from model.</param>
+            <returns>The converted payload value of the underlying type.</returns>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Resources.ArguementsCannotbeNull">
+            <summary>
+              Looks up a localized string similar to The argument with name {0} cannot be null..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Resources.BatchHandlerRequiresApiContextFactory">
+            <summary>
+              Looks up a localized string similar to RestierBatchHandler was called without an ApiContext Factory..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Resources.CannotWriteObjectType">
+            <summary>
+              Looks up a localized string similar to {0} cannot write an object of type &apos;{1}&apos;..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Resources.ControllerRequiresPath">
+            <summary>
+              Looks up a localized string similar to Controller cannot have null path..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Resources.DeleteOnlySupportedOnEntitySet">
+            <summary>
+              Looks up a localized string similar to Currently only EntitySets can be deleted from..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Resources.EdmTypeNotSupported">
+            <summary>
+              Looks up a localized string similar to {0} is not a supported EDM type..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Resources.ElementTypeNotFound">
+            <summary>
+              Looks up a localized string similar to Element type cannot be found for &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Resources.EntitySetMissingForSerialization">
+            <summary>
+              Looks up a localized string similar to EntitySet is missing during serialization..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Resources.IncorrectKeyFormat">
+            <summary>
+              Looks up a localized string similar to Keys were not specified in the format of &apos;KeyName=KeyValue&apos;..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Resources.InsertOnlySupportedOnEntitySet">
+            <summary>
+              Looks up a localized string similar to Currently only EntitySets can be inserted into..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Resources.InvalidEmptyPathInRequest">
+            <summary>
+              Looks up a localized string similar to Invalid request - ODataPath is null..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Resources.InvalidODataInfoInRequest">
+            <summary>
+              Looks up a localized string similar to Invalid request - No ODataProperties..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Resources.InvalidPathTemplateInRequest">
+            <summary>
+              Looks up a localized string similar to Invalid request - Expecting {0} path template..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Resources.KeyNotValidForEntityType">
+            <summary>
+              Looks up a localized string similar to Specified key &apos;{0}&apos; is not a valid property of entity &apos;{1}&apos;..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Resources.MultiKeyValuesExpected">
+            <summary>
+              Looks up a localized string similar to Only one key was specified, when multiple were expected..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Resources.NotSupportedType">
+            <summary>
+              Looks up a localized string similar to Not supported type: {0}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Resources.OperationNotImplemented">
+            <summary>
+              Looks up a localized string similar to The requested operation is not implemented in Api class..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Resources.OperationUnAuthorizationExecution">
+            <summary>
+              Looks up a localized string similar to The user is not authorized to execute operation {0}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Resources.PathSegmentNotSupported">
+            <summary>
+              Looks up a localized string similar to Path segment not supported: {0}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Resources.PostToUnboundActionNotSupported">
+            <summary>
+              Looks up a localized string similar to Post to unbound action is not supported by `RestierController`..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Resources.PreconditionRequired">
+            <summary>
+              Looks up a localized string similar to The request need to have If-Match or If-None-Match header..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Resources.ResourceNotFound">
+            <summary>
+              Looks up a localized string similar to The resource you requested is not found..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Resources.UpdateOnlySupportedOnEntitySet">
+            <summary>
+              Looks up a localized string similar to Currently only EntitySets can be updated..
+            </summary>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.RestierController">
+            <summary>
+            The all-in-one controller class to handle API requests.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.RestierController.Get(System.Threading.CancellationToken)">
+            <summary>
+            Handles a GET request to query entities.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>The task object that contains the response message.</returns>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.RestierController.Post(System.Web.OData.EdmEntityObject,System.Threading.CancellationToken)">
+            <summary>
+            Handles a POST request to create an entity.
+            </summary>
+            <param name="edmEntityObject">The entity object to create.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>The task object that contains the creation result.</returns>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.RestierController.Put(System.Web.OData.EdmEntityObject,System.Threading.CancellationToken)">
+            <summary>
+            Handles a PUT request to fully update an entity.
+            </summary>
+            <param name="edmEntityObject">The entity object to update.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>The task object that contains the updated result.</returns>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.RestierController.Patch(System.Web.OData.EdmEntityObject,System.Threading.CancellationToken)">
+            <summary>
+            Handles a PATCH request to partially update an entity.
+            </summary>
+            <param name="edmEntityObject">The entity object to update.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>The task object that contains the updated result.</returns>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.RestierController.Delete(System.Threading.CancellationToken)">
+            <summary>
+            Handles a DELETE request to delete an entity.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>The task object that contains the deletion result.</returns>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.RestierController.PostAction(System.Web.OData.ODataActionParameters,System.Threading.CancellationToken)">
+            <summary>
+            Handles a POST request to an action.
+            </summary>
+            <param name="parameters">Parameters from action request content.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>The task object that contains the action result.</returns>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.RestierController.Dispose(System.Boolean)">
+            <summary>
+            Disposes the API and the controller.
+            </summary>
+            <param name="disposing">Indicates whether disposing is happening.</param>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.RestierController.Api">
+            <summary>
+            Gets the API associated with this controller.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.BaseCollectionResult">
+            <summary>
+            Represents a collection of objects being returned from an action.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.BaseResult">
+            <summary>
+            Represents the result of an OData query.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.BaseResult.#ctor(Microsoft.OData.Edm.IEdmTypeReference,Microsoft.Restier.Core.ApiContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Restier.Publishers.OData.BaseResult"/> class.
+            </summary>
+            <param name="edmType">The EDM type reference of the OData result.</param>
+            <param name="context">The context where the action is executed.</param>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.BaseResult.EdmType">
+            <summary>
+            Gets the EDM type reference of the OData result.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.BaseResult.Context">
+            <summary>
+            Gets the context where the action is executed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.BaseCollectionResult.#ctor(System.Linq.IQueryable,Microsoft.OData.Edm.IEdmTypeReference,Microsoft.Restier.Core.ApiContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Restier.Publishers.OData.BaseCollectionResult"/> class.
+            </summary>
+            <param name="query">The query that returns a collection of objects.</param>
+            <param name="edmType">The EDM type reference of the objects.</param>
+            <param name="context">The context where the action is executed.</param>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.BaseCollectionResult.Query">
+            <summary>
+            Gets the query that returns a collection of objects.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.BaseCollectionResult.Type">
+            <summary>
+            Gets the type of the query.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.EnumResult">
+            <summary>
+            Represents a single enum value being returned from an action.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.BaseSingleResult">
+            <summary>
+            Represents a single object being returned from an action.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.BaseSingleResult.#ctor(System.Linq.IQueryable,Microsoft.OData.Edm.IEdmTypeReference,Microsoft.Restier.Core.ApiContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Restier.Publishers.OData.BaseSingleResult"/> class.
+            </summary>
+            <param name="query">The query that returns an object.</param>
+            <param name="edmType">The EDM type reference of the object.</param>
+            <param name="context">The context where the action is executed.</param>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.BaseSingleResult.Result">
+            <summary>
+            Gets the result object.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.BaseSingleResult.Type">
+            <summary>
+            Gets the type of the result object.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.EnumResult.#ctor(System.Linq.IQueryable,Microsoft.OData.Edm.IEdmTypeReference,Microsoft.Restier.Core.ApiContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Restier.Publishers.OData.EnumResult"/> class.
+            </summary>
+            <param name="query">The query that returns a enum value.</param>
+            <param name="edmType">The EDM type reference of the enum value.</param>
+            <param name="context">The context where the action is executed.</param>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.NonEntityCollectionResult">
+            <summary>
+            Represents a collection of non-entity values being returned from an action.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.NonEntityCollectionResult.#ctor(System.Linq.IQueryable,Microsoft.OData.Edm.IEdmTypeReference,Microsoft.Restier.Core.ApiContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Restier.Publishers.OData.NonEntityCollectionResult"/> class.
+            </summary>
+            <param name="query">The query that returns a collection of non-entity values.</param>
+            <param name="edmType">The EDM type reference of the values.</param>
+            <param name="context">The context where the action is executed.</param>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.EntityCollectionResult">
+            <summary>
+            Represents a collection of entity instances being returned from an action.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.EntityCollectionResult.#ctor(System.Linq.IQueryable,Microsoft.OData.Edm.IEdmTypeReference,Microsoft.Restier.Core.ApiContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Restier.Publishers.OData.EntityCollectionResult"/> class.
+            </summary>
+            <param name="query">The query that returns a collection of entities.</param>
+            <param name="edmType">The EDM type reference of the entities.</param>
+            <param name="context">The context where the action is executed.</param>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.ComplexResult">
+            <summary>
+            Represents a single complex value being returned from an action.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.ComplexResult.#ctor(System.Linq.IQueryable,Microsoft.OData.Edm.IEdmTypeReference,Microsoft.Restier.Core.ApiContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Restier.Publishers.OData.ComplexResult"/> class.
+            </summary>
+            <param name="query">The query that returns a complex value.</param>
+            <param name="edmType">The EDM type reference of the complex value.</param>
+            <param name="context">The context where the action is executed.</param>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.RawResult">
+            <summary>
+            Represents a raw value being returned from an action.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.RawResult.#ctor(System.Linq.IQueryable,Microsoft.OData.Edm.IEdmTypeReference,Microsoft.Restier.Core.ApiContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Restier.Publishers.OData.RawResult"/> class.
+            </summary>
+            <param name="query">The query that returns a primitive value.</param>
+            <param name="edmType">The EDM type reference of the primitive value.</param>
+            <param name="context">The context where the action is executed.</param>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.PrimitiveResult">
+            <summary>
+            Represents a single primitive value being returned from an action.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.PrimitiveResult.#ctor(System.Linq.IQueryable,Microsoft.OData.Edm.IEdmTypeReference,Microsoft.Restier.Core.ApiContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Restier.Publishers.OData.PrimitiveResult"/> class.
+            </summary>
+            <param name="query">The query that returns a primitive value.</param>
+            <param name="edmType">The EDM type reference of the primitive value.</param>
+            <param name="context">The context where the action is executed.</param>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.RestierRoutingConvention">
+            <summary>
+            The default routing convention implementation.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.RestierRoutingConvention.#ctor(System.Func{Microsoft.Restier.Core.ApiBase})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Restier.Publishers.OData.RestierRoutingConvention"/> class.
+            </summary>
+            <param name="apiFactory">The API factory method.</param>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.RestierRoutingConvention.SelectController(System.Web.OData.Routing.ODataPath,System.Net.Http.HttpRequestMessage)">
+            <summary>
+            Selects OData controller based on parsed OData URI
+            </summary>
+            <param name="odataPath">Parsed OData URI</param>
+            <param name="request">Incoming HttpRequest</param>
+            <returns>Prefix for controller name</returns>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.RestierRoutingConvention.SelectAction(System.Web.OData.Routing.ODataPath,System.Web.Http.Controllers.HttpControllerContext,System.Linq.ILookup{System.String,System.Web.Http.Controllers.HttpActionDescriptor})">
+            <summary>
+            Selects the appropriate action based on the parsed OData URI.
+            </summary>
+            <param name="odataPath">Parsed OData URI</param>
+            <param name="controllerContext">Context for HttpController</param>
+            <param name="actionMap">Mapping from action names to HttpActions</param>
+            <returns>String corresponding to controller action name</returns>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.ValidationResultDto">
+            <summary>
+            A data transfer object that is used to serialize ValidationResult instances to the client.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.ValidationResultDto.#ctor(Microsoft.Restier.Core.Submit.ChangeSetItemValidationResult)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Restier.Publishers.OData.ValidationResultDto"/> class.
+            </summary>
+            <param name="result">The validation result.</param>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.ValidationResultDto.Id">
+            <summary>
+            Gets the id of the <see cref="T:Microsoft.Restier.Core.Submit.ChangeSetItemValidationResult"/> instance.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.ValidationResultDto.Message">
+            <summary>
+            Gets the message of the <see cref="T:Microsoft.Restier.Core.Submit.ChangeSetItemValidationResult"/> instance.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.ValidationResultDto.PropertyName">
+            <summary>
+            Gets the property name of the <see cref="T:Microsoft.Restier.Core.Submit.ChangeSetItemValidationResult"/> instance.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.ValidationResultDto.Severity">
+            <summary>
+            Gets the string that represents the severity of the <see cref="T:Microsoft.Restier.Core.Submit.ChangeSetItemValidationResult"/> instance.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Restier.Shared.SharedResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Shared.SharedResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Shared.SharedResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Shared.SharedResources.QueryShouldGetSingleRecord">
+            <summary>
+              Looks up a localized string similar to A query for a single entity resulted in more than one record..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Restier.Publishers.OData.Query.RestierQueryExecutorOptions.IncludeTotalCount">
+            <summary>
+            Gets or sets a value indicating whether the total
+            number of items should be retrieved when the
+            result has been filtered using paging operators.
+            </summary>
+            <remarks>
+            Setting this to <c>true</c> may have a performance impact as
+            the data provider may need to execute two independent queries.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.Restier.Publishers.OData.ServiceCollectionExtensions">
+            <summary>
+            Contains extension methods of <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
+            This method is used to add odata publisher service into container.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Restier.Publishers.OData.ServiceCollectionExtensions.AddODataServices``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method is used to add odata publisher service into container.
+            </summary>
+            <typeparam name="T">The Api type.</typeparam>
+            <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
+            <returns>Current <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/></returns>
+        </member>
+    </members>
+</doc>
