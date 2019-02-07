@@ -1,0 +1,47 @@
+﻿@model IEnumerable<CollectionApp.ViewModel.CashCentreVM>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>Кассовые центры</h3>
+
+<p>
+    @Html.ActionLink("Создать", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Наименование
+        </th>
+        <th>
+            Город
+        </th>
+        <th>
+            Часовой пояс
+        </th>
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CityName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TimeZone)
+        </td>
+        
+        <td>
+            @Html.ActionLink("Изменить", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Подробнее", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Удалить", "Delete", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>

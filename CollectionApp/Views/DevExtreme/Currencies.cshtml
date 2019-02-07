@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Currencies";
+}
+
+<h2>Валюты</h2>
+
+@(Html.DevExtreme().DataGrid<CollectionApp.Models.Currency>()
+        .ID("gridContainer")
+        .DataSource(d => d
+            .OData()
+            .Url("/odata/Currencies").Key("Id").Version(4))
+        .FilterRow(f => f.Visible(true))
+        .Paging(p => p.PageSize(10))
+        .ShowBorders(true)
+        .Editing(e => e
+        .Mode(GridEditMode.Row)
+        .AllowAdding(true)
+        .AllowDeleting(true)
+        .AllowUpdating(true)
+        )
+    .Columns(columns => {
+
+        columns.AddFor(m => m.Name);
+
+        columns.AddFor(m => m.CurrCode);
+
+        columns.AddFor(m => m.SellRate);
+
+        columns.AddFor(m => m.Locked);
+
+    })
+)

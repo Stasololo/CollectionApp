@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "CashPoints";
+}
+
+<h2>Точки инкассации</h2>
+
+@(Html.DevExtreme().DataGrid<CollectionApp.Models.CashPoint>()
+        .ID("gridContainer")
+        .DataSource(d => d
+            .OData()
+            .Url("/odata/CashPoints").Key("Id").Version(4))
+        .FilterRow(f => f.Visible(true))
+        .Paging(p => p.PageSize(10))
+        .ShowBorders(true)
+        .Editing(e => e
+        .Mode(GridEditMode.Row)
+        .AllowAdding(true)
+        .AllowDeleting(true)
+        .AllowUpdating(true)
+        )
+    .Columns(columns => {
+
+        columns.AddFor(m => m.Name);
+
+        columns.AddFor(m => m.Address);
+
+    })
+)

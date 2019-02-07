@@ -1,0 +1,80 @@
+﻿@model CollectionApp.Models.Currency
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div>
+    <h4>Валюта</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Наименование:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <br />
+        <dt>
+            Код:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrCode)
+        </dd>
+        <br />
+        @*<dt>
+            @Html.DisplayNameFor(model => model.Rate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rate)
+        </dd>
+        <br />*@
+        <dt>
+            Курс:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SellRate)
+        </dd>
+        <br />
+        <dt>
+            Заблокирован:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Locked)
+        </dd>
+        <br />
+        <dt>
+            Создан:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Creation)
+        </dd>
+        <br />
+        <dt>
+            Изменил:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastUpdateUser)
+        </dd>
+        <br />
+        <dt>
+            Последнее обновление:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastUpdate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Изменить", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("К списку", "Index")
+</p>

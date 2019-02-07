@@ -1,0 +1,50 @@
+﻿@model CollectionApp.Models.Clisubfml
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h3>Details</h3>
+
+<div>
+    <h4>Clisubfml</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Creation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Creation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastUpdateUser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastUpdateUser)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastUpdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastUpdate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("К списку", "Index")
+</p>

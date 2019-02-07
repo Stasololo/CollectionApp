@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "CashCentres";
+}
+
+<h2>Кассовые центры</h2>
+
+@(Html.DevExtreme().DataGrid<CollectionApp.Models.CashCentre>()
+        .ID("gridContainer")
+        .DataSource(d => d
+            .OData()
+            .Url("/odata/CashCentres").Key("Id").Version(4))
+        .FilterRow(f => f.Visible(true))
+        .Paging(p => p.PageSize(10))
+        .ShowBorders(true)
+        .Editing(e => e
+        .Mode(GridEditMode.Row)
+        .RefreshMode(GridEditRefreshMode.Full)
+        .AllowAdding(true)
+        .AllowDeleting(true)
+        .AllowUpdating(true)
+        )
+    .Columns(columns => {
+
+        columns.AddFor(m => m.Name);
+
+        columns.AddFor(m => m.TimeZone);
+
+        columns.AddFor(m => m.CityId).Lookup(lookup => lookup
+            .DataSource(d => d
+            .OData()
+            .Url("/odata/Cities").Key("Id").Version(4))
+            .ValueExpr("Id")
+            .DisplayExpr("Name")
+        );
+
+        columns.AddFor(m => m.ParentId).Visible(false);
+    })
+)

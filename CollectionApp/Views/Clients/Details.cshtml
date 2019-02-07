@@ -1,0 +1,121 @@
+﻿@model CollectionApp.Models.Client
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div>
+    <h4>Клиент</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            Наименование:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            БИН:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BIN)
+        </dd>
+
+        <dt>
+            Группа клиента:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Clisubfml.Name)
+        </dd>
+
+        <dt>
+            Город:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City.Name)
+        </dd>
+
+        <dt>
+            Адрес:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            Отчет группа №1: 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReportGroup1)
+        </dd>
+
+        <dt>
+            Отчет группа №2:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReportGroup2)
+        </dd>
+
+        <dt>
+            Отчет группа №3:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReportGroup3)
+        </dd>
+
+        <dt>
+            Отчет группа №4:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReportGroup4)
+        </dd>
+
+        <dt>
+            Почтовый индекс:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostIndex)
+        </dd>
+
+        <dt>
+            Создан: 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Creation)
+        </dd>
+
+        <dt>
+            Изменил: 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastUpdateUser)
+        </dd>
+
+        <dt>
+            Последнее обновление: 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastUpdate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Изменить", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("К списку", "Index")
+</p>

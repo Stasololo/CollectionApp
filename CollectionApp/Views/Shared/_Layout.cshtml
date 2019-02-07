@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title – приложение ASP.NET</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/DevExtremeBundle")
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/Scripts/DevExtremeBundle")
+
+    <script src="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js"
+            type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#SelectedCashCenterIds').multiselect({
+                includeSelectAllOption: true
+            });
+        });
+
+        $(function () {
+            $('#SelectedClientIds').multiselect({
+                includeSelectAllOption: true
+            });
+        });
+
+        $(function () {
+            $('#SelectedCashPointIds').multiselect({
+                includeSelectAllOption: true
+            });
+        });
+
+        $(function () {
+            $('#SelectedAccountIds').multiselect({
+                includeSelectAllOption: true
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Collection", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            Directory
+                        </a>
+                        <div class="dropdown-menu">
+                            @Html.ActionLink("ClienToCC", "Create", "ClientToccs")
+                            <br />
+                            @Html.ActionLink("Пользователи", "Index", "Users")
+                            <br />
+                            @Html.ActionLink("Клиенты", "Index", "Clients")
+                            <br />
+                            @Html.ActionLink("Роли", "Index", "Roles")
+                            <br />
+                            @Html.ActionLink("Кассовые центры", "Index", "CashCentres")
+                            <br />
+                            @Html.ActionLink("Точки Инкассации", "Index", "CashPoints")
+                            <br />
+                            @Html.ActionLink("Номиналы", "Index", "Denominations")
+                            <br />
+                            @Html.ActionLink("Города", "Index", "Cities")
+                            <br />
+                            @Html.ActionLink("Группы Клиентов", "Index", "Clisubfmls")
+                            <br />
+                            @Html.ActionLink("Транзакции", "Index", "Transactions")
+                            <br />
+                            @Html.ActionLink("Валюты", "Index", "Currencies")
+                            <br />
+                            @Html.ActionLink("Счета", "Index", "Accounts")
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            DevExtreme
+                        </a>
+                        <div class="dropdown-menu">
+                            @Html.ActionLink("Счета", "Accounts", "DevExtreme")
+                            <br />
+                            @Html.ActionLink("Кассовые центры", "CashCentres", "DevExtreme")
+                            <br />
+                            @Html.ActionLink("Точки инкассации", "CashPoints", "DevExtreme")
+                            <br />
+                            @Html.ActionLink("Города", "Cities", "DevExtreme")
+                            <br />
+                            @Html.ActionLink("Клиенты", "Clients", "DevExtreme")
+                            <br />
+                            @Html.ActionLink("ClientTocc", "ClientTocc", "DevExtreme")
+                            <br />
+                            @Html.ActionLink("Группы клиентов", "Clisubfmls", "DevExtreme")
+                            <br />
+                            @Html.ActionLink("Валюты", "Currencies", "DevExtreme")
+                            <br />
+                            @Html.ActionLink("Номиналы", "Denominations", "DevExtreme")
+                            <br />
+                            @Html.ActionLink("Пользователи", "Users", "DevExtreme")
+                            <br />
+                            @Html.ActionLink("Test", "Test", "DevExtreme")
+                        </div>
+                    </li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year – Bass Technology</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

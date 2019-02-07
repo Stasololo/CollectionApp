@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Test";
+}
+
+<h2>Test</h2>
+
+@(Html.DevExtreme().DataGrid<CollectionApp.Models.Test>()
+    .Columns(columns => {
+
+        columns.AddFor(m => m.Name);
+
+    })
+    .DataSource(d => d
+            .OData()
+            .Url("/odata/Tests").Key("Id").Version(4))
+    .Editing(e => e
+        .Mode(GridEditMode.Row)
+        .AllowAdding(true)
+        .AllowUpdating(true)
+        .AllowDeleting(true)
+    )
+)

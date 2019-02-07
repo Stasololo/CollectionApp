@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Roles";
+}
+@using CollectionApp.Models
+<h2>Roles</h2>
+
+@(Html.DevExtreme().DataGrid<Role>()
+            .ID("gridContainer")
+            .DataSource(d => d
+                .OData()
+                .Url("/odata/Roles").Key("Id").Version(4))
+            .FilterRow(f => f.Visible(true))
+            .Paging(p => p.PageSize(10))
+            .ShowBorders(true)
+            .Editing(e => e
+            .Mode(GridEditMode.Form)
+            .RefreshMode(GridEditRefreshMode.Full)
+            .AllowAdding(true)
+            .AllowDeleting(true)
+            .AllowUpdating(true)
+            )
+            .OnRowInserting("roleInserting")
+            .Columns(columns =>
+            {
+
+                columns.AddFor(m => m.Name);
+
+            })
+            .Editing(e => e
+                .AllowAdding(true)
+                .AllowUpdating(true)
+                .AllowDeleting(true)
+            )
+)
+
+<script>
+    var roleInserting = function (e) {
+        console.log(e)
+    }
+</script>

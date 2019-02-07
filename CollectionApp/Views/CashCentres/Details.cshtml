@@ -1,0 +1,67 @@
+﻿@model CollectionApp.Models.CashCentre
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div>
+    <h4>Кассовый центр</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            Наименование:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <br />
+        <dt>
+            Город:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City.Name)
+        </dd>
+        <br />
+        <dt>
+            Часовой пояс:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeZone)
+        </dd>
+
+        <br />
+       
+        <dt>
+            Создан:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Creation)
+        </dd>
+        <br />
+        <dt>
+            Изменил:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastUpdateUser)
+        </dd>
+        <br />
+        <dt>
+            Последнее обновление:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastUpdate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Изменить", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("К списку", "Index")
+</p>

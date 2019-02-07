@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Accounts";
+}
+
+<h2>Счета</h2>
+
+@(Html.DevExtreme().DataGrid<CollectionApp.Models.Account>()
+        .ID("gridContainer")
+        .DataSource(d => d
+            .OData()
+            .Url("/odata/Accounts").Key("Id").Version(4))
+        .FilterRow(f => f.Visible(true))
+        .Paging(p => p.PageSize(10))
+        .ShowBorders(true)
+        .Editing(e => e
+        .Mode(GridEditMode.Row)
+        .RefreshMode(GridEditRefreshMode.Full)
+        .AllowAdding(true)
+        .AllowDeleting(true)
+        .AllowUpdating(true)
+        )
+    .Columns(columns => {
+
+        columns.AddFor(m => m.ClientId).Lookup(lookup => lookup
+            .DataSource(d => d
+            .OData()
+            .Url("/odata/Clients").Key("Id").Version(4))
+            .ValueExpr("Id")
+            .DisplayExpr("Name")
+
+        );
+
+        columns.AddFor(m => m.Name);
+
+        columns.AddFor(m => m.CurrencyId).Lookup(lookup => lookup
+            .DataSource(d => d
+            .OData()
+            .Url("/odata/Currencies").Key("Id").Version(4))
+            .ValueExpr("Id")
+            .DisplayExpr("Name")
+
+        );
+    })
+)

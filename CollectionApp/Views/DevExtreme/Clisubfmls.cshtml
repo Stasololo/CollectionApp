@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Clisubfmls";
+}
+
+<h2>Группы клиентов</h2>
+
+@(Html.DevExtreme().DataGrid<CollectionApp.Models.Clisubfml>()
+        .ID("gridContainer")
+        .DataSource(d => d
+            .OData()
+            .Url("/odata/Clisubfmls").Key("Id").Version(4))
+        .FilterRow(f => f.Visible(true))
+        .Paging(p => p.PageSize(10))
+        .ShowBorders(true)
+        .Editing(e => e
+        .Mode(GridEditMode.Row)
+        .AllowAdding(true)
+        .AllowDeleting(true)
+        .AllowUpdating(true)
+        )
+    .Columns(columns => {
+
+        columns.AddFor(m => m.Name);
+
+    })
+)

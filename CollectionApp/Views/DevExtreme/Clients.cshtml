@@ -1,0 +1,287 @@
+﻿@{
+    ViewData["Title"] = "Clients";
+}
+
+<h2>Клиенты</h2>
+
+@(Html.DevExtreme().DataGrid<CollectionApp.Models.Client>()
+    .ID("gridContainer")
+    .DataSource(d => d
+        .OData()
+        .Url("/odata/Clients").Key("Id").Version(4))
+    .FilterRow(f => f.Visible(true))
+    .Paging(p => p.PageSize(10))
+    .ShowBorders(true)
+    .Editing(e => e
+    .Mode(GridEditMode.Row)
+    .AllowAdding(true)
+    .AllowDeleting(true)
+    .AllowUpdating(true)
+    ).MasterDetail(md =>
+        {
+            md.Enabled(true);
+            md.Template(new TemplateName("ClientTocc"));
+        })
+
+    .Columns(columns =>
+    {
+
+        columns.AddFor(m => m.Name);
+
+        columns.AddFor(m => m.BIN);
+
+        columns.AddFor(m => m.Address);
+
+        columns.AddFor(m => m.PostIndex);
+
+        columns.AddFor(m => m.ReportGroup1);
+
+        columns.AddFor(m => m.ReportGroup2);
+
+        columns.AddFor(m => m.ReportGroup3);
+
+        columns.AddFor(m => m.ReportGroup4);
+
+        columns.AddFor(m => m.ClisubfmlId).Lookup(lookup => lookup
+            .DataSource(d => d
+            .OData()
+            .Url("/odata/Clisubfmls").Key("Id").Version(4))
+            .ValueExpr("Id")
+            .DisplayExpr("Name")
+        );
+
+        columns.AddFor(m => m.CityId).Lookup(lookup => lookup
+            .DataSource(d => d
+            .OData()
+            .Url("/odata/Cities").Key("Id").Version(4))
+            .ValueExpr("Id")
+            .DisplayExpr("Name")
+        );
+
+    })
+
+)
+
+@using ((Html.DevExtreme().NamedTemplate("ClientTocc")))
+{
+    <h2>ClientTocc</h2>
+    @(Html.DevExtreme().DataGrid<CollectionApp.Models.ClientTocc>()
+        .ID("gridContainer1")
+        .DataSource(d => d
+            .OData()
+            .Url("/odata/ClientTocc")
+            .Key("Id")
+            .Version(4))
+        .Editing(e => e
+        .Mode(GridEditMode.Row)
+        .AllowAdding(true)
+        .AllowDeleting(true)
+        .AllowUpdating(true)
+        )
+        .FilterRow(f => f.Visible(true))
+        .Paging(p => p.PageSize(10))
+        .ShowBorders(true)
+        .DataSourceOptions(ds => ds
+            .Filter(new JS("['ClientId', '=' , data.Id]")
+        ))
+        .OnInitNewRow(string.Format("function(e){{newClientTocc(e,{0})}}", new JS("data")))
+        .Columns(columns =>
+        {
+
+            columns.AddFor(m => m.ClientId)
+            .Lookup(lookup => lookup
+                .DataSource(d => d
+                    .OData()
+                    .Url("/odata/Clients")
+                    .Key("Id")
+                    .Version(4))
+                    .ValueExpr("Id")
+                    .DisplayExpr("Name")
+                    .DataSourceOptions(ds => ds
+                        .Filter(new JS("['Id', '=' , data.Id]")
+                    ))
+            );
+
+            columns.AddFor(m => m.CashCentreId)
+            .Lookup(lookup => lookup
+                .DataSource(d => d
+                    .OData()
+                    .Url("/odata/CashCentres")
+                    .Key("Id")
+                    .Version(4))
+                    .ValueExpr("Id")
+                    .DisplayExpr("Name")
+
+            );
+        })
+        .MasterDetail(md =>
+        {
+            md.Enabled(true);
+            md.Template(new TemplateName("CashPoint"));
+        })
+    )
+}
+
+@using (Html.DevExtreme().NamedTemplate("CashPoint"))
+{
+    <h2>CashPoints</h2>
+
+    @(Html.DevExtreme().DataGrid<CollectionApp.Models.CashPoint>()
+        .ID("gridContainer2")
+        .DataSource(d => d
+            .OData()
+            .Url("/odata/CashPoints").Key("Id").Version(4).Expand("ClientTocc"))
+        .DataSourceOptions(ds => ds
+            .Filter(new JS("['ClientToccId', '=' , data.Id]")
+        ))
+        .Editing(e => e
+            .Mode(GridEditMode.Row)
+            .AllowAdding(true)
+            .AllowDeleting(true)
+            .AllowUpdating(true)
+        )
+        .OnInitNewRow(string.Format("function(e){{newCashPoint(e,{0})}}", new JS("data")))
+        .Columns(columns =>
+        {
+
+            columns.AddFor(m => m.Name);
+            columns.AddFor(m => m.Address);
+
+        })
+
+        .MasterDetail(md =>
+        {
+            md.Enabled(true);
+            md.Template(new TemplateName("accounts"));
+        })
+    )
+}
+
+@using (Html.DevExtreme().NamedTemplate("accounts"))
+{
+    <h2>Accounts</h2>
+    @(Html.DevExtreme().DataGrid<CollectionApp.Models.Account>()
+        .ID("grid-container3")
+        .ShowBorders(true)
+        .OnContentReady("contentReadyAction")
+        .DataSource(d => d
+            .OData()
+            .Url("/odata/Accounts")
+            .Expand("CashPoints")
+            .Key("Id")
+            .Version(4))
+        .DataSourceOptions(ds => ds
+            .Filter(new JS("['ClientId', '=' , data.ClientTocc.ClientId]")
+        ))
+        .SelectionFilter(new object[] { "CashPoints", "=", "Completed" })
+        .Selection(s => s
+            .Mode(SelectionMode.Multiple)
+            .Deferred(true))
+        .Editing(e => e
+            .Mode(GridEditMode.Row)
+            .AllowAdding(false)
+            .AllowDeleting(false)
+            .AllowUpdating(false)
+        )
+        .OnInitNewRow(string.Format("function(e){{newAccount(e,{0})}}", new JS("data")))
+        .FilterRow(f => f.Visible(true))
+        .Paging(p => p.PageSize(10))
+        .ShowBorders(true)
+        .Columns(columns =>
+        {
+            columns.AddFor(m => m.Name).Caption("Наименование");
+
+            columns.AddFor(m => m.CurrencyId)
+            .Lookup(lookup => lookup
+                .DataSource(d => d
+                .OData()
+                .Url("/odata/Currencies")
+                .Key("Id")
+                .Version(4))
+                .ValueExpr("Id")
+                .DisplayExpr("Name")
+
+            );
+        })
+    )
+
+    <div>
+        <br />
+
+        @(Html.DevExtreme().Button()
+                    .Text("Add")
+                    .Type(ButtonType.Default)
+                    .Width(90)
+                    .OnClick(string.Format("function(e){{notify(e,{0})}}", new JS("data")))
+        )
+
+    </div>
+}
+
+<script>
+
+    var newClientTocc = function (e, data) {
+        //console.log("Client", data);
+    }
+
+    var newCashPoint = function (e, data) {
+        //console.log("ClientTocc", data);
+        e.data.ClientToccId = data.Id;
+        e.data.ClientTocc = data.ClientTocc;
+    }
+
+    var newAccount = function (e, data) {
+        //console.log("CashPoint", data);
+        e.data.ClientToccId = data.ClientToccId;
+        e.data.ClientId = data.ClientTocc.ClientId;
+    }
+
+    function notify(e, data) {
+        var dataGrid = $("#grid-container3").dxDataGrid("instance");
+        //console.log("dataGrid", dataGrid)
+        var accountIdArr = [];
+        var list = dataGrid.getSelectedRowsData();
+        //console.log("list", list)
+        dataGrid.getSelectedRowsData().done(function (rowData) {
+            for (var i = 0; i < rowData.length; i++) {
+                accountIdArr.push(rowData[i].Id);
+                //console.log("rowData", rowData[i]);
+                //console.log("rowData[i].Id", rowData[i].Id)
+            }
+            //console.log("params", data.Id, accountIdArr);
+
+            $.ajax({
+                type: "POST",
+                url: "/api/cashpoint/accounts",
+                data: { CashPointId: data.Id, AccountIds: accountIdArr },
+                success: function (data) {
+                    console.log("Success", data);
+                },
+                dataType: "application/json",
+            });
+        });
+    }
+
+    var dataGrid_initialized = function (e, data) {
+        addAccounts(e);
+    }
+
+    var contentReadyAction = function (e) {
+        console.log("e.component.getDataSource().items()", e.component.getDataSource().items());
+        console.log("e.component", e.component);
+        var q = e.component.getDataSource().items()[0].ClientToccId;
+        $.ajax({
+            type: "GET",
+            data: { CashPointId: q },
+            url: "/api/cashpoint/getaccounts",
+            success: function () {
+                console.log("Success", data);
+            },
+            dataType: "application/json",
+        });
+
+        e.component.selectRows([0]);
+        
+    }
+
+</script>

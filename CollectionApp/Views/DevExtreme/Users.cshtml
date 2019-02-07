@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Users";
+}
+
+<h2>Пользователи</h2>
+
+@(Html.DevExtreme().DataGrid<CollectionApp.Models.User>()
+        .ID("gridContainer")
+        .DataSource(d => d
+            .OData()
+            .Url("/odata/Users").Key("Id").Version(4))
+        .Editing(e => e
+        .Mode(GridEditMode.Row)
+        .AllowAdding(true)
+        .AllowDeleting(true)
+        .AllowUpdating(true)
+        )
+    .Columns(columns => {
+
+        columns.AddFor(m => m.Code);
+
+        columns.AddFor(m => m.ExpireDate);
+
+        columns.AddFor(m => m.CashCentreId).Lookup(lookup => lookup
+            .DataSource(d => d
+            .OData()
+            .Url("/odata/CashCentres").Key("Id").Version(4))
+            .ValueExpr("Id")
+            .DisplayExpr("Name")
+        );
+
+        columns.AddFor(m => m.Email);
+
+        columns.AddFor(m => m.PhoneNumber);
+
+        columns.AddFor(m => m.Id).Visible(false);
+
+        columns.AddFor(m => m.UserName);
+
+
+    })
+)

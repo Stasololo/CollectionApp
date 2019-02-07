@@ -1,0 +1,72 @@
+﻿@model CollectionApp.Models.Denomination
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div>
+    <h4>Номинал</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Валюта:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Currency.Name)
+        </dd>
+        <br />
+        <dt>
+            Наименование:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <br />
+        <dt>
+            Значение:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Value)
+        </dd>
+        <br />
+        <dt>
+            Годен до:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValidDate)
+        </dd>
+        <br />
+        <dt>
+            Создан:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Creation)
+        </dd>
+        <br />
+        <dt>
+            Изменил:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastUpdateUser)
+        </dd>
+        <br />
+        <dt>
+            Последнее обновление:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastUpdate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Изменить", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("К списку", "Index")
+</p>

@@ -1,0 +1,79 @@
+﻿@model CollectionApp.Models.Denomination
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h3>Удаление</h3>
+
+<div>
+    <h4>Номинала</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Валюта: 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Currency.Name)
+        </dd>
+
+        <dt>
+            Наименование: 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            Значние: 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Value)
+        </dd>
+
+        <dt>
+            Годен до: 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValidDate)
+        </dd>
+
+        <dt>
+            Создан: 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Creation)
+        </dd>
+
+        <dt>
+            Изменил: 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastUpdateUser)
+        </dd>
+
+        <dt>
+            Последнее обновление: 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastUpdate)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-default" /> |
+            @Html.ActionLink("К списку", "Index")
+        </div>
+    }
+</div>

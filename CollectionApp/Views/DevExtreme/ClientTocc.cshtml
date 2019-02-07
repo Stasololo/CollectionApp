@@ -1,0 +1,183 @@
+﻿@{
+    ViewData["Title"] = "ClientTocc";
+}
+
+<h2>ClientTocc</h2>
+@(Html.DevExtreme().DataGrid<CollectionApp.Models.ClientTocc>()
+        .ID("gridContainer")
+        .DataSource(d => d
+            .OData()
+            .Url("/odata/ClientTocc").Key("Id").Version(4))
+        .Editing(e => e
+        .Mode(GridEditMode.Row)
+        .AllowAdding(true)
+        .AllowDeleting(true)
+        .AllowUpdating(true)
+        )
+        //.OnInitNewRow(string.Format("function(e){{newClientTocc(e,{0})}}", new JS("data")))
+        .Columns(columns =>
+        {
+
+            columns.AddFor(m => m.ClientId).Lookup(lookup => lookup
+                .DataSource(d => d
+                    .OData()
+                    .Url("/odata/Clients").Key("Id").Version(4))
+                    .ValueExpr("Id")
+                    .DisplayExpr("Name")
+            );
+
+            columns.AddFor(m => m.CashCentreId).Lookup(lookup => lookup
+                .DataSource(d => d
+                    .OData()
+                    .Url("/odata/CashCentres").Key("Id").Version(4))
+                    .ValueExpr("Id")
+                    .DisplayExpr("Name")
+
+            );
+        })
+
+        .MasterDetail(md =>
+        {
+            md.Enabled(true);
+            md.Template(new TemplateName("CashPoint"));
+        })
+)
+
+@using (Html.DevExtreme().NamedTemplate("CashPoint"))
+{
+    <h2>CashPoints</h2>
+    @(Html.DevExtreme().DataGrid<CollectionApp.Models.CashPoint>()
+        .ID("gridContainer1")
+        .DataSource(d => d
+            .OData()
+            .Url("/odata/CashPoints").Key("Id").Version(4).Expand("ClientTocc"))
+        .DataSourceOptions(ds => ds
+            .Filter(new JS("['ClientToccId', '=' , data.Id]")
+        ))
+        .Editing(e => e
+            .Mode(GridEditMode.Row)
+            .AllowAdding(true)
+            .AllowDeleting(true)
+            .AllowUpdating(true)
+        )
+        .OnInitNewRow(string.Format("function(e){{newCashPoint(e,{0})}}", new JS("data")))
+        .Columns(columns =>
+        {
+
+            columns.AddFor(m => m.Name);
+
+            columns.AddFor(m => m.Address);
+
+        })
+
+        .MasterDetail(md =>
+        {
+            md.Enabled(true);
+            md.Template(new TemplateName("accounts"));
+        })
+    )
+}
+
+
+@using (Html.DevExtreme().NamedTemplate("accounts"))
+{
+    <h2>Accounts</h2>
+    @(Html.DevExtreme().DataGrid<CollectionApp.Models.Account>()
+        .ID("grid-container2")
+        .ShowBorders(true)
+        .DataSource(d => d
+            .OData()
+            .Url("/odata/Accounts").Key("Id").Version(4))
+        .DataSourceOptions(ds => ds
+            .Filter(new JS("['ClientId', '=' , data.ClientTocc.ClientId]")
+        ))
+        .Selection(s => s
+            .Mode(SelectionMode.Multiple)
+            .Deferred(true))
+        .Editing(e => e
+            .Mode(GridEditMode.Row)
+            .AllowAdding(true)
+            .AllowDeleting(true)
+            .AllowUpdating(true)
+        )
+        .OnInitNewRow(string.Format("function(e){{newAccount(e,{0})}}", new JS("data")))
+        .FilterRow(f => f.Visible(true))
+        .OnInitialized("dataGrid_initialized")
+        .Columns(columns =>
+        {
+            columns.AddFor(m => m.Name);
+
+            columns.AddFor(m => m.CurrencyId).Lookup(lookup => lookup
+                .DataSource(d => d
+                .OData()
+                .Url("/odata/Currencies").Key("Id").Version(4))
+                .ValueExpr("Id")
+                .DisplayExpr("Name")
+
+            );
+        })
+    )
+    <div>
+        <br />
+        @(Html.DevExtreme().Button()
+                .Text("Add accounts")
+                .Type(ButtonType.Normal)
+                .OnClick("calculateStatistics")
+        )
+    </div>
+}
+
+    
+
+<script>
+
+    var newClientTocс = function (e, data) {
+        console.log("qweqwe", data);
+    }
+
+    var newCashPoint = function (e, data) {
+        console.log("ClientToc", data);
+        e.data.ClientToccId = data.Id;
+    }
+
+    var newAccount = function (e, data) {
+        console.log("CashPoint", data);
+        e.data.ClientToccId = data.ClientToccId;
+        e.data.CashPointId = data.Id;
+        //e.data.ClientId = data.ClientTocc.ClientId;
+
+    }
+
+
+
+    var MILLISECONDS_IN_DAY = 1000 * 60 * 60 * 24;
+
+    function getDataGridInstance() {
+        return $("#grid-container2").dxDataGrid("instance");
+    }
+
+    function calculateStatistics() {
+        getDataGridInstance().getSelectedRowsData().done(function (rowData) {
+            var commonDuration = 0;
+
+            for (var i = 0; i < rowData.length; i++) {
+                commonDuration += rowData[i].Task_Due_Date - rowData[i].Task_Start_Date;
+            }
+            commonDuration = commonDuration / MILLISECONDS_IN_DAY;
+
+            $("#tasks-count").text(rowData.length);
+            $("#people-count").text(
+                DevExpress.data.query(rowData)
+                    .groupBy("ResponsibleEmployee.Employee_Full_Name")
+                    .toArray()
+                    .length
+            );
+            $("#avg-duration").text(Math.round(commonDuration / rowData.length) || 0);
+        });
+    }
+
+    function dataGrid_initialized(e) {
+        calculateStatistics();
+    }
+
+</script>

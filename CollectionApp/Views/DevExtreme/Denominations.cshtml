@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Denominations";
+}
+
+<h2>Номиналы</h2>
+
+@(Html.DevExtreme().DataGrid<CollectionApp.Models.Denomination>()
+        .ID("gridContainer")
+        .DataSource(d => d
+            .OData()
+            .Url("/odata/Denominations").Key("Id").Version(4))
+        .FilterRow(f => f.Visible(true))
+        .Paging(p => p.PageSize(10))
+        .ShowBorders(true)
+        .Editing(e => e
+        .Mode(GridEditMode.Row)
+        .AllowAdding(true)
+        .AllowDeleting(true)
+        .AllowUpdating(true)
+        )
+    .Columns(columns => {
+
+        columns.AddFor(m => m.Name);
+
+        columns.AddFor(m => m.Value);
+
+        columns.AddFor(m => m.ValidDate);
+
+        columns.AddFor(m => m.CurrencyId).Lookup(lookup => lookup
+            .DataSource(d => d
+            .OData()
+            .Url("/odata/Currencies").Key("Id").Version(4))
+            .ValueExpr("Id")
+            .DisplayExpr("Name")
+        );
+    })
+)
